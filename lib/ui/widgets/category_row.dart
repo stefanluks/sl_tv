@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sl_tv/data/models/video_model.dart';
+import 'package:sl_tv/ui/pages/movie_detail_page.dart';
 import 'video_card.dart';
 
 class CategoryRow extends StatelessWidget {
@@ -37,7 +38,12 @@ class CategoryRow extends StatelessWidget {
                 title: video.title,
                 thumbnail: video.thumbnail,
                 onTap: () {
-                  // depois você navega para o player
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => MovieDetailPage(filme: video),
+                    ),
+                  );
                 },
               );
             },
