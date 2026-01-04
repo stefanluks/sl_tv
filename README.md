@@ -1,22 +1,62 @@
 # 📺 SL TV
 
-🎯 Objetivo do projeto
+SL TV é um aplicativo de streaming desenvolvido em Flutter com o objetivo de demonstrar conhecimentos em arquitetura de apps, consumo de dados, navegação, gerenciamento de estado e reprodução de mídia.  
+O projeto é **exclusivamente educacional**...
 
-🛠 Tecnologias utilizadas
+## Objetivo
 
-🚧 Status: Em desenvolvimento
+Este projeto foi criado para fins de portfólio, com foco em:
+- Estruturação de um app de streaming
+- Boas práticas de organização de código
+- Consumo de dados simulados e/ou APIs
+- Experiência de usuário semelhante a plataformas de streaming
 
-A new Flutter project.
+## Tecnologias Utilizadas
 
-## Getting Started
+- Flutter
+- Dart
+- Material Design
+- Arquitetura modularizada (camadas separadas)
 
-This project is a starting point for a Flutter application.
+## Funcionalidades Planejadas
 
-A few resources to get you started if this is your first Flutter project:
+- [ ] Tela inicial com catálogo de vídeos
+- [ ] Detalhes do conteúdo
+- [ ] Player de vídeo
+- [ ] Listagem por categorias
+- [ ] Favoritos
+- [ ] Histórico de reprodução
+- [ ] Dados simulados ou backend próprio
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Estrutura do Projeto
+```
+lib/
+ ├─ core/
+ │   ├─ constants/
+ │   ├─ theme/
+ │   └─ utils/
+ ├─ data/
+ │   ├─ models/
+ │   ├─ services/
+ │   └─ repositories/
+ ├─ ui/
+ │   ├─ pages/
+ │   ├─ widgets/
+ │   └─ controllers/
+ └─ main.dart
+ ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Status do Projeto
+
+Em desenvolvimento.
+
+## Observações Importantes
+
+- O app **não distribui conteúdo real**
+- Os vídeos utilizados serão exemplos públicos, simulados ou locais
+- Projeto criado apenas para estudo e demonstração técnica
+
+## Autor
+
+Stefan Lucas  
+Projeto desenvolvido para portfólio pessoal
