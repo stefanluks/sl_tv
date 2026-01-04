@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sl_tv/data/models/video_model.dart';
+import 'package:sl_tv/ui/pages/video_player_page.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final VideoModel filme;
@@ -73,7 +74,12 @@ class MovieDetailPage extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  // futuramente: player de vídeo
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => VideoPlayerPage(videoUrl: filme.url),
+                    ),
+                  );
                 },
               ),
             ),
