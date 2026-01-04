@@ -44,7 +44,7 @@ class Fservices {
     return lista.map<Episodio>((e) {
       return Episodio(
         numero: e['numero'] ?? 0,
-        title: e['title'] ?? '',
+        title: e['titulo'] ?? '',
         sinopse: e['sinopse'] ?? '',
         url: e['url'] ?? '',
         thumbnail: e['thumbnail'] ?? '',

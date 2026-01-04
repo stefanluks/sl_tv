@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:sl_tv/data/models/temporada.model.dart';
 
-class DropdownTemporada extends StatefulWidget {
+class DropdownTemporada extends StatelessWidget {
   final List<Temporada> opcoes;
+  final Temporada? selecionada;
+  final ValueChanged<Temporada> onChanged;
 
-  const DropdownTemporada({super.key, required this.opcoes});
-
-  @override
-  State<DropdownTemporada> createState() => _DropdownTemporadaState();
-}
-
-class _DropdownTemporadaState extends State<DropdownTemporada> {
-  String? valorSelecionado;
+  const DropdownTemporada({
+    super.key,
+    required this.opcoes,
+    required this.selecionada,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: valorSelecionado,
+    return DropdownButton<Temporada>(
+      value: selecionada,
       hint: const Text(
         'Selecione uma temporada',
         style: TextStyle(color: Colors.white),
@@ -24,16 +24,11 @@ class _DropdownTemporadaState extends State<DropdownTemporada> {
       dropdownColor: const Color.fromARGB(255, 109, 109, 109),
       style: const TextStyle(color: Colors.white),
       iconEnabledColor: Colors.white,
-      items: widget.opcoes.map((Temporada item) {
-        return DropdownMenuItem<String>(
-          value: item.titulo,
-          child: Text(item.titulo),
-        );
+      items: opcoes.map((t) {
+        return DropdownMenuItem<Temporada>(value: t, child: Text(t.titulo));
       }).toList(),
-      onChanged: (String? novoValor) {
-        setState(() {
-          valorSelecionado = novoValor;
-        });
+      onChanged: (t) {
+        if (t != null) onChanged(t);
       },
     );
   }

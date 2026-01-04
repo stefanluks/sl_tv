@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    categorias = ApiService.get('conteudo');
+    categorias = ApiService.get('app-api-animes-filmes-conteudo');
   }
 
   @override
