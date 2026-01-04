@@ -127,22 +127,61 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                   bottom: _showControls ? 32 : -100,
                   left: 16,
                   right: 16,
-                  child: Container(
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.white24,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: FractionallySizedBox(
-                      widthFactor: progress.clamp(0.0, 1.0),
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(4),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onHorizontalDragStart: (_) {
+                          _hideTimer
+                              ?.cancel(); // impede auto-hide enquanto arrasta
+                        },
+
+                        onHorizontalDragEnd: (_) {
+                          _startAutoHide(); // volta o auto-hide ao soltar
+                        },
+                        onTapDown: (details) {
+                          final dx = details.localPosition.dx;
+                          final width = constraints.maxWidth;
+
+                          final percent = (dx / width).clamp(0.0, 1.0);
+                          controller.seekTo(
+                            controller.value.duration * percent,
+                          );
+                        },
+                        onHorizontalDragUpdate: (details) {
+                          final dx = details.localPosition.dx;
+                          final width = constraints.maxWidth;
+
+                          final percent = (dx / width).clamp(0.0, 1.0);
+                          controller.seekTo(
+                            controller.value.duration * percent,
+                          );
+                        },
+                        child: SizedBox(
+                          height: 24, // área de toque maior
+                          child: Center(
+                            child: Container(
+                              height: 4, // barra visível
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white24, // ← barra cinza
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: FractionallySizedBox(
+                                alignment: Alignment.centerLeft,
+                                widthFactor: progress.clamp(0.0, 1.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.red, // progresso
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 );
               },
