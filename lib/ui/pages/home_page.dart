@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sl_tv/data/video_mock.dart';
 import '../widgets/category_row.dart';
 import '../../data/services/api.service.dart';
 
@@ -40,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.hasError) {
             return Center(
               child: Text(
-                'Erro ao carregar conteúdo',
+                'Erro ao carregar conteúdo!',
                 style: const TextStyle(color: Colors.white),
               ),
             );
@@ -54,8 +53,8 @@ class _HomePageState extends State<HomePage> {
               final categoria = data[index];
 
               return CategoryRow(
-                title: categoria['categoria'],
-                videos: categoria['videos'],
+                title: categoria['categoria'] ?? 'Sem Categoria',
+                videos: categoria['videos'] ?? [],
               );
             },
           );

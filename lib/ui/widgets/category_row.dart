@@ -21,7 +21,6 @@ class _CategoryRowState extends State<CategoryRow> {
   void initState() {
     super.initState();
     lista = Fservices.ListToVideo(widget.videos);
-    print(lista);
   }
 
   @override

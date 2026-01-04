@@ -1,3 +1,5 @@
+import 'package:sl_tv/data/models/temporada.model.dart';
+
 class VideoModel {
   final String title;
   final String thumbnail;
@@ -7,6 +9,7 @@ class VideoModel {
   final String description;
   final String duration;
   final String author;
+  List<Temporada> temporadas = [];
 
   VideoModel({
     required this.title,
@@ -18,4 +21,8 @@ class VideoModel {
     required this.duration,
     required this.author,
   });
+
+  void AddTemporadas(List<Temporada> lista) {
+    temporadas = lista;
+  }
 }

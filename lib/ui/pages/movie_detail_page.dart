@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sl_tv/data/models/video_model.dart';
 import 'package:sl_tv/ui/pages/video_player_page.dart';
+import 'package:sl_tv/ui/widgets/dropdown.dart';
 
 class MovieDetailPage extends StatelessWidget {
   final VideoModel filme;
@@ -61,26 +62,44 @@ class MovieDetailPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
+            if (filme.type == "filme")
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 203, 39, 28),
+                    minimumSize: const Size(double.infinity, 48),
+                  ),
+                  icon: const Icon(Icons.play_arrow, color: Colors.white),
+                  label: const Text(
+                    'Assistir',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => VideoPlayerPage(videoUrl: filme.url),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+            const Divider(),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 203, 39, 28),
-                  minimumSize: const Size(double.infinity, 48),
-                ),
-                icon: const Icon(Icons.play_arrow, color: Colors.white),
-                label: const Text(
-                  'Assistir',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => VideoPlayerPage(videoUrl: filme.url),
-                    ),
-                  );
-                },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DropdownTemporada(opcoes: filme.temporadas),
+                  IconButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    icon: Icon(Icons.arrow_downward),
+                  ),
+                ],
               ),
             ),
           ],
