@@ -20,7 +20,7 @@ Este projeto foi criado para fins de portfólio, com foco em:
 
 ## Funcionalidades Planejadas
 
-- [ ] Tela inicial com catálogo de vídeos
+- ✅ Tela inicial com catálogo de vídeos
 - [ ] Detalhes do conteúdo
 - [ ] Player de vídeo
 - [ ] Listagem por categorias
