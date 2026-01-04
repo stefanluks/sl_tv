@@ -7,6 +7,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg',
     category: 'Em alta',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     description:
@@ -19,6 +20,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://upload.wikimedia.org/wikipedia/commons/8/8f/Sintel_poster.jpg',
     category: 'Em alta',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
     description:
@@ -31,6 +33,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://mango.blender.org/wp-content/uploads/2013/05/01_thom_celia_bridge.jpg',
     category: 'Em alta',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     description:
@@ -45,6 +48,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://orange.blender.org/wp-content/themes/orange/images/common/ed_header.jpg',
     category: 'Recomendados',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     description:
@@ -57,6 +61,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg',
     category: 'Recomendados',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     description:
@@ -69,6 +74,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg',
     category: 'Recomendados',
+    type: "filme",
     url:
         'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     description:
@@ -83,6 +89,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg',
     category: 'Novos',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
     description:
@@ -95,6 +102,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg',
     category: 'Novos',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
     description:
@@ -107,6 +115,7 @@ final List<VideoModel> videosMock = [
     thumbnail:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg',
     category: 'Novos',
+    type: "filme",
     url:
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     description:

@@ -3,6 +3,7 @@ class VideoModel {
   final String thumbnail;
   final String category;
   final String url;
+  final String type;
   final String description;
   final String duration;
   final String author;
@@ -12,6 +13,7 @@ class VideoModel {
     required this.thumbnail,
     required this.category,
     required this.url,
+    required this.type,
     required this.description,
     required this.duration,
     required this.author,

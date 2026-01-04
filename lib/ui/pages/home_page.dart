@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sl_tv/data/video_mock.dart';
 import '../widgets/category_row.dart';
+import '../../data/services/api.service.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final categories = {
-      'Em alta': videosMock.where((v) => v.category == 'Em alta').toList(),
-      'Recomendados': videosMock
-          .where((v) => v.category == 'Recomendados')
-          .toList(),
-      'Novos': videosMock.where((v) => v.category == 'Novos').toList(),
-    };
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  late Future<List<dynamic>> categorias;
+
+  @override
+  void initState() {
+    super.initState();
+    categorias = ApiService.get('conteudo');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -24,10 +30,36 @@ class HomePage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
-      body: ListView(
-        children: categories.entries.map((entry) {
-          return CategoryRow(title: entry.key, videos: entry.value);
-        }).toList(),
+      body: FutureBuilder<List<dynamic>>(
+        future: categorias,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'Erro ao carregar conteúdo',
+                style: const TextStyle(color: Colors.white),
+              ),
+            );
+          }
+
+          final data = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              final categoria = data[index];
+
+              return CategoryRow(
+                title: categoria['categoria'],
+                videos: categoria['videos'],
+              );
+            },
+          );
+        },
       ),
     );
   }
