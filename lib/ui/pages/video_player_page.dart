@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sl_tv/ui/widgets/topButtons.dart';
@@ -15,11 +17,13 @@ class VideoPlayerPage extends StatefulWidget {
 
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
   late VideoPlayerController controller;
+  late bool _showControls;
+  Timer? _hideTimer;
 
   @override
   void initState() {
     super.initState();
-
+    _showControls = true;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -30,14 +34,25 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..initialize().then((_) {
         controller.play();
+        _startAutoHide();
         setState(() {});
       });
+  }
+
+  void _startAutoHide() {
+    _hideTimer?.cancel();
+
+    _hideTimer = Timer(const Duration(seconds: 2), () {
+      setState(() {
+        _showControls = false;
+      });
+    });
   }
 
   @override
   void dispose() {
     controller.dispose();
-
+    _hideTimer?.cancel();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -56,85 +71,94 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Center(child: VideoPlayerWidget(controller: controller)),
+      body: GestureDetector(
+        onTap: () {
+          setState(() {
+            _showControls = true;
+          });
+          _startAutoHide();
+        },
+        child: Stack(
+          children: [
+            Center(child: VideoPlayerWidget(controller: controller)),
 
-          // 📋 Botões topo direito
-          Positioned(
-            top: 32,
-            right: 16,
-            child: Row(
-              children: [
-                TopButton(icon: Icons.list),
-                const SizedBox(width: 8),
-                TopButton(icon: Icons.skip_next, text: 'Próximo episódio'),
-              ],
-            ),
-          ),
-
-          // ▶️ Play / Pause central
-          Center(
-            child: IconButton(
-              icon: Icon(
-                controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                color: Colors.red,
-                size: 64,
+            // 📋 Botões topo direito
+            Positioned(
+              top: _showControls ? 32 : -100,
+              right: 16,
+              child: Row(
+                children: [
+                  TopButton(icon: Icons.list),
+                  const SizedBox(width: 8),
+                  TopButton(icon: Icons.skip_next, text: 'Próximo episódio'),
+                ],
               ),
-              onPressed: () {
-                setState(() {
-                  controller.value.isPlaying
-                      ? controller.pause()
-                      : controller.play();
-                });
-              },
             ),
-          ),
 
-          // 📊 Barra de progresso REAL
-          ValueListenableBuilder(
-            valueListenable: controller,
-            builder: (context, VideoPlayerValue value, child) {
-              final duration = value.duration.inMilliseconds;
-              final position = value.position.inMilliseconds;
-
-              final progress = duration > 0 ? position / duration : 0.0;
-
-              return Positioned(
-                bottom: 32,
-                left: 16,
-                right: 16,
-                child: Container(
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(4),
+            if (_showControls)
+              Center(
+                child: IconButton(
+                  icon: Icon(
+                    controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.red,
+                    size: 64,
                   ),
-                  child: FractionallySizedBox(
-                    widthFactor: progress.clamp(0.0, 1.0),
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(4),
+                  onPressed: () {
+                    setState(() {
+                      controller.value.isPlaying
+                          ? controller.pause()
+                          : controller.play();
+                    });
+                    _startAutoHide();
+                  },
+                ),
+              ),
+
+            // 📊 Barra de progresso REAL
+            ValueListenableBuilder(
+              valueListenable: controller,
+              builder: (context, VideoPlayerValue value, child) {
+                final duration = value.duration.inMilliseconds;
+                final position = value.position.inMilliseconds;
+
+                final progress = duration > 0 ? position / duration : 0.0;
+
+                return Positioned(
+                  bottom: _showControls ? 32 : -100,
+                  left: 16,
+                  right: 16,
+                  child: Container(
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: FractionallySizedBox(
+                      widthFactor: progress.clamp(0.0, 1.0),
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
-          ),
-
-          // 🔙 Voltar
-          Positioned(
-            top: 32,
-            left: 16,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.red),
-              onPressed: () => Navigator.pop(context),
+                );
+              },
             ),
-          ),
-        ],
+
+            // 🔙 Voltar
+            Positioned(
+              top: _showControls ? 32 : -100,
+              left: 16,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.red),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
