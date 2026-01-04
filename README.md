@@ -60,3 +60,72 @@ Em desenvolvimento.
 
 Stefan Lucas  
 Projeto desenvolvido para portfólio pessoal
+
+## ▶️ Como rodar e testar o app
+
+Este projeto foi desenvolvido em Flutter. Siga os passos abaixo para executar o app localmente e gerar o APK para testes.
+
+### 📌 Pré-requisitos
+
+ - Flutter SDK instalado
+ - Android Studio ou VS Code
+ - Android SDK configurado
+ - Um emulador Android ou um celular físico (com Depuração USB ativada)
+ 
+Verifique se o ambiente está correto:
+```
+flutter doctor
+```
+
+## ▶️ Rodar o app em modo desenvolvimento
+
+Clone o repositório:
+```
+git clone https://github.com/stefanluks/sl_tv.git
+```
+
+Acesse a pasta do projeto:
+```
+cd sl_tv
+```
+
+Instale as dependências:
+```
+flutter pub get
+```
+
+> Conecte um dispositivo ou inicie um emulador
+
+Execute o app:
+```
+flutter run
+```
+
+### 📱 Gerar APK para testes (Release)
+
+Para gerar um APK instalável em qualquer celular Android:
+```
+flutter build apk --release
+```
+
+O arquivo será gerado em:
+```
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+Copie o APK para o celular e instale normalmente.
+
+### 🔒 Permitir instalação no celular
+
+No Android:
+
+Ative Instalar apps de fontes desconhecidas
+
+Permita a instalação para o app usado (Files, Chrome, etc.)
+
+🔄 Observações importantes
+
+ - O app roda offline, usando dados mockados
+ - O player de vídeo funciona em modo paisagem (tela cheia)
+ - A Home e tela de detalhes são travadas em modo retrato
+ - Este projeto é apenas educacional/demonstração
