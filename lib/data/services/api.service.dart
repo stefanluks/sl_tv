@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String _baseUrl = 'http://192.168.0.105:3000';
+  static const String _baseUrl = 'https://apinotas-ubn4.onrender.com/';
 
   // GET simples
   static Future<List<dynamic>> get(String rota) async {
